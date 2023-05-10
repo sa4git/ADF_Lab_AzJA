@@ -1,0 +1,9 @@
+{
+	"name": "pl_sample1",
+	"properties": {
+		"description": "sample pipeline",
+		"annotations": [
+			"SA"
+		]
+	}
+}
