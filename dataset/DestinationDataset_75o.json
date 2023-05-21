@@ -1,0 +1,20 @@
+{
+	"name": "DestinationDataset_75o",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls2_dest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "mythemeslg.parquet",
+				"fileSystem": "sample-data"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
