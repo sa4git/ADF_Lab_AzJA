@@ -1,0 +1,21 @@
+{
+	"name": "dsLegoGZip",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "http_lego_rebrick",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "themes.csv.gz"
+			},
+			"compression": {
+				"type": "gzip",
+				"level": "Optimal"
+			}
+		}
+	}
+}
