@@ -1,0 +1,32 @@
+{
+	"name": "dsLegoThemes",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls2_dest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "sample-data"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "Column1",
+				"type": "UTF8"
+			},
+			{
+				"name": "Column2",
+				"type": "UTF8"
+			},
+			{
+				"name": "Column3",
+				"type": "UTF8"
+			}
+		]
+	}
+}
