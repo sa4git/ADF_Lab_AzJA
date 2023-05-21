@@ -1,0 +1,20 @@
+{
+	"name": "DestinationDataset_pby",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls2_dest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "themes.parquet",
+				"fileSystem": "sample-data"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
