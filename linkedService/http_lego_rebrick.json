@@ -1,0 +1,13 @@
+{
+	"name": "http_lego_rebrick",
+	"properties": {
+		"description": "rebrick",
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://cdn.rebrickable.com/media/downloads/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
