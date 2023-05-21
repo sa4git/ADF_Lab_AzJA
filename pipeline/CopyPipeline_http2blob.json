@@ -62,6 +62,44 @@
 					},
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "4",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "4",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Expert Builder",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Expert Builder",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "1",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "1",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,

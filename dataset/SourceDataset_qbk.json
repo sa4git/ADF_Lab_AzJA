@@ -22,15 +22,15 @@
 		},
 		"schema": [
 			{
-				"name": "4",
+				"name": "id",
 				"type": "String"
 			},
 			{
-				"name": "Expert Builder",
+				"name": "name",
 				"type": "String"
 			},
 			{
-				"name": "1",
+				"name": "parent_id",
 				"type": "String"
 			}
 		]
