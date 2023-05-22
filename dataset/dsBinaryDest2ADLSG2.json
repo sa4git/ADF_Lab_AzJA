@@ -1,0 +1,19 @@
+{
+	"name": "dsBinaryDest2ADLSG2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls2_dest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "newname.csv",
+				"folderPath": "mybinaris",
+				"fileSystem": "sample-data"
+			}
+		}
+	}
+}
