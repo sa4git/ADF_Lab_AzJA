@@ -136,7 +136,7 @@
 								"scripts": [
 									{
 										"type": "Query",
-										"text": "INSERT INTO [dbo].[FolderList]([foldername],[filecount])    VALUES('Absbs', 23)"
+										"text": "INSERT INTO [dbo].[FolderList]([foldername],[filecount])  VALUES('@{item().name}', @{int(activity('Filter1').output.ItemsCount)})"
 									}
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"
