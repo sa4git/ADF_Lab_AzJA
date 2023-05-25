@@ -87,34 +87,11 @@
 							}
 						},
 						{
-							"name": "Filter1",
-							"type": "Filter",
-							"dependsOn": [
-								{
-									"activity": "Get Metadata1",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"items": {
-									"value": "@activity('Get Metadata1').output.childItems",
-									"type": "Expression"
-								},
-								"condition": {
-									"value": "@equals(item().type, 'File')",
-									"type": "Expression"
-								}
-							}
-						},
-						{
 							"name": "Script1",
 							"type": "Script",
 							"dependsOn": [
 								{
-									"activity": "Filter1",
+									"activity": "Get Metadata1",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -136,7 +113,7 @@
 								"scripts": [
 									{
 										"type": "Query",
-										"text": "INSERT INTO [dbo].[FolderList]([foldername],[filecount])  VALUES('@{item().name}', @{int(activity('Filter1').output.ItemsCount)})"
+										"text": "INSERT INTO [dbo].[MyLog](Msg1, Msg2)  VALUES('@{item().name}', '@{length(activity('Get Metadata1').output.childItems)}')"
 									}
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"
