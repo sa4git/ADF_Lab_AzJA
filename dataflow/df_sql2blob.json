@@ -65,7 +65,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> sourceDept",
-				"ModifiedEmp, ModifiedDept join(sourceEmp@DEPTNO == sourceDept@DEPTNO,",
+				"ModifiedEmp, ModifiedDept join(sourceEmp@DEPTNO == ModifiedDept@DEPTNO,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
