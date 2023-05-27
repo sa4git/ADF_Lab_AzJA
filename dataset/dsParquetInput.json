@@ -1,0 +1,58 @@
+{
+	"name": "dsParquetInput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls2_syn54",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Dept10.parquet",
+				"folderPath": "output",
+				"fileSystem": "dev-envt"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "EMPNO",
+				"type": "INT32"
+			},
+			{
+				"name": "ENAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "JOB",
+				"type": "UTF8"
+			},
+			{
+				"name": "MGR",
+				"type": "INT32"
+			},
+			{
+				"name": "HIREDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "SAL",
+				"type": "DECIMAL",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "COMM",
+				"type": "DECIMAL",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "DEPTNO",
+				"type": "INT32"
+			}
+		]
+	}
+}
