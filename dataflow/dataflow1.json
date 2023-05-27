@@ -19,11 +19,21 @@
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "dsMoviesOut",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
 				}
 			],
 			"transformations": [
 				{
 					"name": "YearExtract"
+				},
+				{
+					"name": "MoviesByYear"
 				}
 			],
 			"scriptLines": [
@@ -37,6 +47,8 @@
 				"     ignoreNoFilesFound: false) ~> DFCopyMovies",
 				"DFCopyMovies derive(Year = toInteger(trim(right(title, 6), '()')),",
 				"          title = toString(left(title, length(title)-6))) ~> YearExtract",
+				"YearExtract aggregate(groupBy(Year),",
+				"     MoviesCount = count()) ~> MoviesByYear",
 				"YearExtract sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['movies-clean.csv'],",
@@ -45,7 +57,16 @@
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('hash', 1)) ~> sink1"
+				"     partitionBy('hash', 1)) ~> sink1",
+				"MoviesByYear sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['mvoies-by-year.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink2"
 			]
 		}
 	}
