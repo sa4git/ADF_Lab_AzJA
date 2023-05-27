@@ -113,7 +113,7 @@
 								"scripts": [
 									{
 										"type": "Query",
-										"text": "INSERT INTO [dbo].[MyLog](Msg1, Msg2)  VALUES('@{item().name}', '@{length(activity('Get Metadata1').output.childItems)}')"
+										"text": "INSERT INTO [dbo].[MyLog](Msg1, MsgNo)  VALUES('@{item().name}', @{length(activity('Filter1').output.Value)})"
 									}
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"
