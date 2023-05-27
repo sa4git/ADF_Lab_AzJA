@@ -1,0 +1,20 @@
+{
+	"name": "dsParquetOutGen",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls2_syn54",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "output",
+				"fileSystem": "dev-envt"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
