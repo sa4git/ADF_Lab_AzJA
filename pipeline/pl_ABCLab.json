@@ -1,0 +1,149 @@
+{
+	"name": "pl_ABCLab",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Append Tablename",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('arTables')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Lookup1",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "@concat('select count(*) as rwCount from ', item())",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "ds_Dept",
+									"type": "DatasetReference"
+								}
+							}
+						},
+						{
+							"name": "If Condition1",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Set variable2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [
+								{
+									"name": "NowRunning",
+									"value": "@variables('varRes')"
+								}
+							],
+							"typeProperties": {
+								"expression": {
+									"value": "@greater(activity('Lookup1').output.firstRow.rwCount, 0)",
+									"type": "Expression"
+								},
+								"ifFalseActivities": [
+									{
+										"name": "WaitWhenFalse",
+										"type": "Wait",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"waitTimeInSeconds": 1
+										}
+									}
+								],
+								"ifTrueActivities": [
+									{
+										"name": "WaitWhenTrue",
+										"type": "Wait",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"waitTimeInSeconds": 1
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "Set variable2",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Lookup1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "varRes",
+								"value": {
+									"value": "@string(activity('Lookup1').output.firstRow.rwCount)",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Append Tablename",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "arTables",
+					"value": "EMP3"
+				}
+			}
+		],
+		"variables": {
+			"arTables": {
+				"type": "Array",
+				"defaultValue": [
+					"EMP",
+					"DEPT"
+				]
+			},
+			"varRes": {
+				"type": "String",
+				"defaultValue": "90"
+			}
+		},
+		"annotations": [
+			"Anntest",
+			"Note3"
+		]
+	}
+}
