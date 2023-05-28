@@ -1,0 +1,102 @@
+{
+	"name": "dfSplitData",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_Emp",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dsParquetOutGen",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "dsParquetOutGen",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				},
+				{
+					"dataset": {
+						"referenceName": "dsParquetOutGen",
+						"type": "DatasetReference"
+					},
+					"name": "sink3"
+				}
+			],
+			"transformations": [
+				{
+					"name": "split1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          EMPNO as integer,",
+				"          ENAME as string,",
+				"          JOB as string,",
+				"          MGR as integer,",
+				"          HIREDATE as date,",
+				"          SAL as decimal(10,2),",
+				"          COMM as decimal(10,2),",
+				"          DEPTNO as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source1",
+				"source1 split(equals(DEPTNO, 10),",
+				"     equals(DEPTNO, 20),",
+				"     disjoint: false) ~> split1@(Dept10, Dept20, Others)",
+				"split1@Dept10 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     partitionFileNames:['Dept10.parquet'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          EMPNO,",
+				"          ENAME,",
+				"          JOB,",
+				"          MGR,",
+				"          HIREDATE,",
+				"          SAL,",
+				"          COMM,",
+				"          DEPTNO",
+				"     ),",
+				"     partitionBy('hash', 1)) ~> sink1",
+				"split1@Dept20 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     partitionFileNames:['Dept20.parquest'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink2",
+				"split1@Others sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink3"
+			]
+		}
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"name": "dsbinarytarget",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_myblb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "fstpic.jpg",
+				"folderPath": "output",
+				"container": "blobfolder"
+			}
+		}
+	}
+}

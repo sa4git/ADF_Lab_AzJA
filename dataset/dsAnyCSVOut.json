@@ -1,0 +1,42 @@
+{
+	"name": "dsAnyCSVOut",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls2_syn54",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pFileName": {
+				"type": "String",
+				"defaultValue": "NoNameGiven.csv"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().pFileName",
+					"type": "Expression"
+				},
+				"folderPath": "input",
+				"fileSystem": "dev-envt"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	}
+}

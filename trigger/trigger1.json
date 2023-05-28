@@ -1,0 +1,25 @@
+{
+	"name": "trigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_CopySQL2Blob",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 2,
+				"startTime": "2023-05-28T11:17:00Z",
+				"endTime": "2023-05-28T11:17:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

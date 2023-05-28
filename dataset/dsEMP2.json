@@ -1,0 +1,56 @@
+{
+	"name": "dsEMP2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EMPNO",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ENAME",
+				"type": "varchar"
+			},
+			{
+				"name": "JOB",
+				"type": "varchar"
+			},
+			{
+				"name": "MGR",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "HIREDATE",
+				"type": "date"
+			},
+			{
+				"name": "SAL",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "COMM",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "DEPTNO",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EMP2"
+		}
+	}
+}
