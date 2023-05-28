@@ -202,6 +202,165 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pl_ABCLab')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Append Tablename",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@variables('arTables')",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Lookup1",
+									"type": "Lookup",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "@concat('select count(*) as rwCount from ', item())",
+												"type": "Expression"
+											},
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"dataset": {
+											"referenceName": "ds_Dept",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									}
+								},
+								{
+									"name": "If Condition1",
+									"type": "IfCondition",
+									"dependsOn": [
+										{
+											"activity": "Set variable2",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [
+										{
+											"name": "NowRunning",
+											"value": "@variables('varRes')"
+										}
+									],
+									"typeProperties": {
+										"expression": {
+											"value": "@greater(activity('Lookup1').output.firstRow.rwCount, 0)",
+											"type": "Expression"
+										},
+										"ifFalseActivities": [
+											{
+												"name": "WaitWhenFalse",
+												"type": "Wait",
+												"dependsOn": [],
+												"userProperties": [],
+												"typeProperties": {
+													"waitTimeInSeconds": 1
+												}
+											}
+										],
+										"ifTrueActivities": [
+											{
+												"name": "WaitWhenTrue",
+												"type": "Wait",
+												"dependsOn": [],
+												"userProperties": [],
+												"typeProperties": {
+													"waitTimeInSeconds": 1
+												}
+											}
+										]
+									}
+								},
+								{
+									"name": "Set variable2",
+									"type": "SetVariable",
+									"dependsOn": [
+										{
+											"activity": "Lookup1",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "varRes",
+										"value": {
+											"value": "@string(activity('Lookup1').output.firstRow.rwCount)",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Append Tablename",
+						"type": "AppendVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "arTables",
+							"value": "EMP3"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"variables": {
+					"arTables": {
+						"type": "Array",
+						"defaultValue": [
+							"EMP",
+							"DEPT"
+						]
+					},
+					"varRes": {
+						"type": "String",
+						"defaultValue": "90"
+					}
+				},
+				"annotations": [
+					"Anntest",
+					"Note3"
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_Dept')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pl_CopyFromSQL2Blob')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -266,7 +425,16 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [],
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "dbo.EMP"
+							},
+							{
+								"name": "Destination",
+								"value": "dev-envt/input/@{concat('Emp', formatDateTime(utcNow(), 'ddMMyyyyHHmmss'), '.csv')}"
+							}
+						],
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
@@ -332,7 +500,20 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [],
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "dbo.DEPT"
+							},
+							{
+								"name": "Destination",
+								"value": "dev-envt/input/@{concat('Dept_', formatDateTime(utcNow(), 'ddMMyyHHmmss'), '.csv')}"
+							},
+							{
+								"name": "Version",
+								"value": "1.0"
+							}
+						],
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
@@ -1659,37 +1840,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/trigger1')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pl_CopySQL2Blob",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 2,
-						"startTime": "2023-05-28T11:17:00Z",
-						"endTime": "2023-05-28T14:17:00Z",
-						"timeZone": "UTC"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pl_CopySQL2Blob')]"
-			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
