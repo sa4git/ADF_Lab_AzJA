@@ -132,6 +132,7 @@
 			"arTables": {
 				"type": "Array",
 				"defaultValue": [
+					"EMP",
 					"DEPT"
 				]
 			},
