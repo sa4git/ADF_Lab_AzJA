@@ -93,6 +93,26 @@
 									}
 								]
 							}
+						},
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Lookup1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "varRes",
+								"value": {
+									"value": "@activity('Lookup1').output.firstRow.rwCount",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
