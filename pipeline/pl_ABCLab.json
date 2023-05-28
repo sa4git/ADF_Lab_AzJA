@@ -5,7 +5,14 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Append Tablename",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
@@ -40,8 +47,31 @@
 									"type": "DatasetReference"
 								}
 							}
+						},
+						{
+							"name": "If Condition1",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Lookup1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": []
 						}
 					]
+				}
+			},
+			{
+				"name": "Append Tablename",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "arTables",
+					"value": "EMP3"
 				}
 			}
 		],
@@ -54,6 +84,9 @@
 				]
 			}
 		},
-		"annotations": []
+		"annotations": [
+			"Anntest",
+			"Note3"
+		]
 	}
 }
