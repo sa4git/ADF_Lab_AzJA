@@ -1,0 +1,9 @@
+{
+	"name": "sa-factory-data-54",
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2a9a5371-533a-429b-a1ba-b2e73f9d40e6",
+		"tenantId": "f90d1719-f046-4561-9509-c3a6f18804f4"
+	}
+}

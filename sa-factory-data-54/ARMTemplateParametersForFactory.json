@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "sa-factory-data-54"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"ls_adls2_dest_accountKey": {
+			"value": ""
+		},
+		"ls_adls2_src_accountKey": {
+			"value": ""
+		},
+		"ls_adls2_syn54_accountKey": {
+			"value": ""
+		},
+		"ls_adls_g2_test_dest_connectionString": {
+			"value": ""
+		},
+		"ls_blob_myblb_connectionString": {
+			"value": ""
+		},
+		"http_lego_rebrick_properties_typeProperties_url": {
+			"value": "https://cdn.rebrickable.com/media/downloads/"
+		},
+		"ls_adls2_dest_properties_typeProperties_url": {
+			"value": "https://synapse54storage.dfs.core.windows.net/"
+		},
+		"ls_adls2_src_properties_typeProperties_url": {
+			"value": "https://synapse54storage.dfs.core.windows.net/"
+		},
+		"ls_adls2_syn54_properties_typeProperties_url": {
+			"value": "https://synapse54storage.dfs.core.windows.net/"
+		}
+	}
+}
