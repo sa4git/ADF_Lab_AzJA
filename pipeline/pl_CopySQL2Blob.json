@@ -13,7 +13,16 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "dbo.EMP"
+					},
+					{
+						"name": "Destination",
+						"value": "dev-envt/input/@{concat('Emp', formatDateTime(utcNow(), 'ddMMyyyyHHmmss'), '.csv')}"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
@@ -78,7 +87,20 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "dbo.DEPT"
+					},
+					{
+						"name": "Destination",
+						"value": "dev-envt/input/@{concat('Dept_', formatDateTime(utcNow(), 'ddMMyyHHmmss'), '.csv')}"
+					},
+					{
+						"name": "Version",
+						"value": "1.0"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
