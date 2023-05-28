@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "CopyEMP2Blob",
+				"name": "CopyEmpSQL2Blob",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -13,16 +13,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [
-					{
-						"name": "Source",
-						"value": "dbo.EMP"
-					},
-					{
-						"name": "Destination",
-						"value": "dev-envt/input/@{'Employees.csv'}"
-					}
-				],
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
@@ -62,7 +53,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"pFileName": {
-								"value": "\"HeloEmp.csv\"\n",
+								"value": "Emp@{formatDateTime(utcNow(), 'HHmmss')}.csv",
 								"type": "Expression"
 							}
 						}
