@@ -59,7 +59,12 @@
 									]
 								}
 							],
-							"userProperties": [],
+							"userProperties": [
+								{
+									"name": "NowRunning",
+									"value": "@variables('varRes')"
+								}
+							],
 							"typeProperties": {
 								"expression": {
 									"value": "@greater(activity('Lookup1').output.firstRow.rwCount, 0)",
@@ -107,9 +112,12 @@
 			"arTables": {
 				"type": "Array",
 				"defaultValue": [
-					"EMP",
 					"DEPT"
 				]
+			},
+			"varRes": {
+				"type": "String",
+				"defaultValue": "90"
 			}
 		},
 		"annotations": [
