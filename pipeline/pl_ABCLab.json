@@ -1,0 +1,15 @@
+{
+	"name": "pl_ABCLab",
+	"properties": {
+		"variables": {
+			"arTables": {
+				"type": "Array",
+				"defaultValue": [
+					"EMP",
+					"DEPT"
+				]
+			}
+		},
+		"annotations": []
+	}
+}
